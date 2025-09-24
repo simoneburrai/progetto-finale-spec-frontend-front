@@ -28,6 +28,8 @@ export default function ProductPage() {
     fetchProduct();
   }, [id, getSingleProduct]);
 
+  
+
   if (loading) {
     return <h2 className="text-center my-5">Caricamento in corso...</h2>;
   }

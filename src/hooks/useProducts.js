@@ -7,6 +7,17 @@ export default function useProducts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [favoriteProducts, setFavoriteProducts] = useState([]);
+  const [comparedProducts, setComparedProducts] = useState([]);
+  
+   const addCompared = (element) =>{
+    setComparedProducts(prev => [...new Set([...prev, element])])
+  }
+
+  const removeCompared= (id)=>{
+        let currentId = Number(id);
+        setComparedProducts(prev => prev.filter(p=>p.id !== currentId));
+  }
+
 
   const addFavorite = (element) =>{
     setFavoriteProducts(prev => [...new Set([...prev, element])])
@@ -72,6 +83,9 @@ export default function useProducts() {
     getSingleProduct,
     favoriteProducts,
     addFavorite,
-    removeFavorite
+    removeFavorite,
+    comparedProducts,
+    addCompared,
+    removeCompared
   };
 }
