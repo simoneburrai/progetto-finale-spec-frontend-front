@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useProductContext } from "../contexts/ProductContext";
 
-export default function ProductDetail() {
+export default function ProductPage() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { getSingleProduct } = useProductContext();
+  const { getSingleProduct, addFavorite} = useProductContext();
 
   let { id } = useParams();
   id = Number(id);
@@ -71,7 +71,7 @@ export default function ProductDetail() {
                   </span>
                 </div>
 
-                <button className="btn btn-success mt-4">
+                <button onClick={()=>addFavorite(product)} className="btn btn-success mt-4">
                   <i className="bi bi-cart-plus me-2"></i>Aggiungi ai Preferiti
                 </button>
               </div>

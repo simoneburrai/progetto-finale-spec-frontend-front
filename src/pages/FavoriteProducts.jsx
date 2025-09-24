@@ -1,18 +1,40 @@
-import { useProductContext } from "../contexts/ProductContext"
-export default function FavoriteProducts(){
+import { useProductContext } from "../contexts/ProductContext";
 
-    const {favoriteProducts, removeFavorite} = useProductContext();
+export default function FavoriteProducts() {
+  const { favoriteProducts, removeFavorite } = useProductContext();
 
-    
+  if (favoriteProducts.length === 0) {
+    return (
+      <div className="alert alert-warning text-center my-5">
+        Lista dei Preferiti Vuota
+      </div>
+    );
+  }
 
-    if(favoriteProducts.length === 0){
-        return <div className="alert text-center text-warning">Lista dei Preferiti Vuota</div>
-    }
+  console.log(favoriteProducts);
 
-    return favoriteProducts.map(p=><div key={p.id}>
-        <h4>{p.title}</h4>
-        <h5>{p.category}</h5>
-        <img src={p.image} alt={p.title} />ù
-        <button onClick={() =>removeFavorite(p.id)}>Remove from Favourites</button>
-    </div>)
+  return (
+    <div className="container my-5">
+      <h2 className="text-center mb-4">I tuoi Preferiti</h2>
+      <div className="row g-4">
+        {favoriteProducts.map((p) => (
+          <div className="col-md-4" key={p.id}>
+            <div className="card h-100 shadow-sm">
+              <div className="card-body text-center d-flex flex-column">
+                <h5 className="card-title">{p.title}</h5>
+                <p className="text-muted mb-3">{p.category}</p>
+                <button
+                  className="btn btn-outline-danger mt-auto"
+                  onClick={() => removeFavorite(p.id)}
+                >
+                  <i className="bi bi-heartbreak me-2"></i>
+                  Rimuovi dai Preferiti
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }

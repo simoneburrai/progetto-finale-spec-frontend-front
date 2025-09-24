@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { useProductContext } from "../contexts/ProductContext"
 import { Link } from "react-router-dom";
+import ProductDetail from "../components/ProductDetail";
 
 export default function ProductList(){
 
@@ -45,8 +46,8 @@ export default function ProductList(){
 
 
     return  <div>
-        <h1>Lista dei Prodotti:</h1>
-        <div>
+        <h1 className="mb-4 text-center">Lista dei Prodotti</h1>
+        <div >
             <input type="text" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)} />
             <select onChange={(e)=>setSelectedCategory(e.target.value)}>
                 <option value="">Tutte le categorie</option>
@@ -59,13 +60,11 @@ export default function ProductList(){
                 <option value={"category,-1"}>Ordina per Categoria Z-A</option>
             </select>
         </div>
-        
-          {searchedProducts.length> 0 ? searchedProducts.map(product => <div key={product.id}>
-            <h3><Link to={`/products/${product.id}`}>{product.title}</Link></h3>
-            <h4>{product.category}</h4>
-            <button onClick={()=>addFavorite(product)}>Aggiungi ai Preferiti</button>
-        </div>) 
+        <div className="row justify-content-center m-3">
+             {searchedProducts.length> 0 ? searchedProducts.map(product => <ProductDetail key={product.id} addFavorite={addFavorite} product={product}/>)
         : <div>Lista dei prodotti Vuota...</div>}
         
+        </div>
+         
     </div>
 }
