@@ -6,6 +6,16 @@ export default function useProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [favoriteProducts, setFavoriteProducts] = useState([]);
+
+  const addFavorite = (element) =>{
+    setFavoriteProducts(prev => [...prev, element])
+  }
+
+  const removeFavorite = (id)=>{
+        let currentId = Number(id);
+        setFavoriteProducts(favoriteProducts.filter(p=>p.id !== currentId));
+  }
 
   const getProducts = async () => {
     const response = await fetch(VITE_API_PRODUCT_URL);
@@ -57,5 +67,8 @@ export default function useProducts() {
     setProducts,
     getProducts,
     getSingleProduct,
+    favoriteProducts,
+    addFavorite,
+    removeFavorite
   };
 }

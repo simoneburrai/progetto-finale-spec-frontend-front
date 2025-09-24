@@ -1,9 +1,10 @@
 import { useState, useMemo } from "react";
 import { useProductContext } from "../contexts/ProductContext"
+import { Link } from "react-router-dom";
 
 export default function ProductList(){
 
-    const {products, loading, error} = useProductContext();
+    const {products, loading, error, addFavorite} = useProductContext();
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState(null);
     const categories = [...new Set(products.map(p=>p.category))]
@@ -36,7 +37,8 @@ export default function ProductList(){
        return <h2>Caricamento della Lista dei Prodotti in corso...</h2>
     }
     if(error){
-        return <h2>{error}</h2>
+        console.log(error)
+        return <h2>Lista dei Prodotti non Trovata</h2>
     }
 
     console.log(searchedProducts)
@@ -59,8 +61,9 @@ export default function ProductList(){
         </div>
         
           {searchedProducts.length> 0 ? searchedProducts.map(product => <div key={product.id}>
-            <h3>{product.title}</h3>
+            <h3><Link to={`/products/${product.id}`}>{product.title}</Link></h3>
             <h4>{product.category}</h4>
+            <button onClick={()=>addFavorite(product)}>Aggiungi ai Preferiti</button>
         </div>) 
         : <div>Lista dei prodotti Vuota...</div>}
         
