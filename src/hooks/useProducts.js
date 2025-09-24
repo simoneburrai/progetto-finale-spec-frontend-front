@@ -9,23 +9,25 @@ export default function useProducts() {
   const [favoriteProducts, setFavoriteProducts] = useState([]);
 
   const addFavorite = (element) =>{
-    setFavoriteProducts(prev => [...prev, element])
+    setFavoriteProducts(prev => [...new Set([...prev, element])])
   }
 
   const removeFavorite = (id)=>{
         let currentId = Number(id);
-        setFavoriteProducts(favoriteProducts.filter(p=>p.id !== currentId));
+        setFavoriteProducts(prev => prev.filter(p=>p.id !== currentId));
   }
 
   const getProducts = async () => {
     const response = await fetch(VITE_API_PRODUCT_URL);
-    const data = await response.json();
+   
     if (!response.ok) {
       throw new Error(
         `Errore nella chiamata HTTP.
         ${response.status} : ${response.statusText}`
       );
     }
+    
+    const data = await response.json();
     return data;
   };
 
@@ -33,13 +35,14 @@ export default function useProducts() {
     const response = await fetch(`${VITE_API_PRODUCT_URL}/${productId}`, {
   cache: "no-cache"
 });
-    const data = await response.json();
+    
     if (!response.ok) {
       throw new Error(
          `Errore nella chiamata HTTP.
         ${response.status} : ${response.statusText}`
       );
     }
+    const data = await response.json();
     return data.product;
   };
 

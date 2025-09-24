@@ -71,7 +71,7 @@ export default function ProductPage() {
                   </span>
                 </div>
 
-                <button onClick={()=>addFavorite(product)} className="btn btn-success mt-4">
+                <button onClick={()=>addFavorite(product)} className="btn btn-outline-success mt-auto">
                   <i className="bi bi-cart-plus me-2"></i>Aggiungi ai Preferiti
                 </button>
               </div>
