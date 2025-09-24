@@ -22,8 +22,7 @@ export default function ProductList(){
         let filteredProducts = products;
         if(searchQuery){
             filteredProducts = products.filter(p => 
-                p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                p.category.toLowerCase().includes(searchQuery.toLowerCase()) )
+                p.title.toLowerCase().includes(searchQuery.toLowerCase()))
         }
         if(selectedCategory){
             filteredProducts = filteredProducts.filter(p => p.category === selectedCategory);
