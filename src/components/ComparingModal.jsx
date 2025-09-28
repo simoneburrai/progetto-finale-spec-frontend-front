@@ -1,9 +1,13 @@
-export default function ComparingModal({ products, showModal, onClose }) {
-  if (!showModal) return null;
+import { createPortal } from "react-dom";
 
-  return (
+const modalRoot = document.getElementById("modal-root");
+
+export default function ComparingModal({ products, showModal, onClose }) {
+  if (!showModal || !modalRoot) return null;
+
+  return createPortal(
     <div className="modal show d-block" tabIndex="-1" aria-modal="true" onClick={onClose}>
-      <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Confronta due articoli</h5>
@@ -27,5 +31,7 @@ export default function ComparingModal({ products, showModal, onClose }) {
         </div>
       </div>
     </div>
-  );
+  , modalRoot);
 }
+
+

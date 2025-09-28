@@ -5,7 +5,7 @@ import ComparingModal from "../components/ComparingModal";
 
 export default function ProductList(){
 
-    const {products, loading, error, addFavorite, comparedProducts} = useProductContext();
+    const {products, loading, error, addFavorite, comparedProducts, setComparedProducts} = useProductContext();
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategory, setSelectedCategory] = useState(null);
     const categories = [...new Set(products.map(p=>p.category))]
