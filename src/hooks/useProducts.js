@@ -1,68 +1,93 @@
 import { useEffect, useState } from "react";
 
+// Legge la variabile d'ambiente per l'URL base dei prodotti
 const { VITE_API_PRODUCT_URL } = import.meta.env;
 
 export default function useProducts() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [favoriteProducts, setFavoriteProducts] = useState([]);
-  const [comparedProducts, setComparedProducts] = useState([]);
+  // URL corrente per la chiamata API
+  const [url, setUrl] = useState(VITE_API_PRODUCT_URL);
   
-   const addCompared = (element) =>{
-    setComparedProducts(prev => [...new Set([...prev, element])])
-  }
+  // Lista delle categorie disponibili
+  const [categories, setCategories] = useState([]);
+  
+  // Lista dei prodotti recuperati dall'API
+  const [products, setProducts] = useState([]);
+  
+  // Stato di caricamento
+  const [loading, setLoading] = useState(true);
+  
+  // Stato di errore
+  const [error, setError] = useState(null);
+  
+  // Lista dei prodotti preferiti dall'utente
+  const [favoriteProducts, setFavoriteProducts] = useState([]);
+  
+  // Lista dei prodotti selezionati per la comparazione
+  const [comparedProducts, setComparedProducts] = useState([]);
 
-  const removeCompared= (id)=>{
-        let currentId = Number(id);
-        setComparedProducts(prev => prev.filter(p=>p.id !== currentId));
-  }
+  // --- Funzioni per la gestione dei prodotti comparati ---
+  const addCompared = (element) => {
+    setComparedProducts((prev) => {
+      // Evita duplicati
+      if (prev.some((p) => p.id === element.id)) return prev;
+      return [...prev, element];
+    });
+  };
 
+  const removeCompared = (id) => {
+    setComparedProducts((prev) => prev.filter((p) => p.id !== Number(id)));
+  };
 
-  const addFavorite = (element) =>{
-    setFavoriteProducts(prev => [...new Set([...prev, element])])
-  }
+  // --- Funzioni per la gestione dei prodotti preferiti ---
+  const addFavorite = (element) => {
+    setFavoriteProducts((prev) => {
+      // Evita duplicati
+      if (prev.some((p) => p.id === element.id)) return prev;
+      return [...prev, element];
+    });
+  };
 
-  const removeFavorite = (id)=>{
-        let currentId = Number(id);
-        setFavoriteProducts(prev => prev.filter(p=>p.id !== currentId));
-  }
+  const removeFavorite = (id) => {
+    setFavoriteProducts((prev) => prev.filter((p) => p.id !== Number(id)));
+  };
 
-  const getProducts = async () => {
-    const response = await fetch(VITE_API_PRODUCT_URL);
-   
+  // --- Funzione per recuperare tutti i prodotti dall'API ---
+  const getProducts = async (url) => {
+    const response = await fetch(url);
+
     if (!response.ok) {
       throw new Error(
-        `Errore nella chiamata HTTP.
-        ${response.status} : ${response.statusText}`
+        `Errore nella chiamata HTTP. ${response.status} : ${response.statusText}`
       );
     }
-    
+
     const data = await response.json();
+    setProducts(data); // aggiorna lo stato dei prodotti
     return data;
   };
 
+  // --- Funzione per recuperare un singolo prodotto ---
   const getSingleProduct = async (productId) => {
     const response = await fetch(`${VITE_API_PRODUCT_URL}/${productId}`, {
-  cache: "no-cache"
-});
-    
+      cache: "no-cache", // evita caching locale
+    });
+
     if (!response.ok) {
       throw new Error(
-         `Errore nella chiamata HTTP.
-        ${response.status} : ${response.statusText}`
+        `Errore nella chiamata HTTP. ${response.status} : ${response.statusText}`
       );
     }
+
     const data = await response.json();
-    return data.product;
+    return data.product; // ritorna solo il singolo prodotto
   };
 
+  // --- Effetto per recuperare i prodotti quando cambia l'URL ---
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const products = await getProducts();
-        setProducts(products);
+        await getProducts(url);
       } catch (err) {
         console.error(err.message);
         setError(err.message);
@@ -72,8 +97,17 @@ export default function useProducts() {
     };
 
     fetchProducts();
-  }, []);
+  }, [url]);
 
+  // --- Effetto per estrarre le categorie uniche dai prodotti ---
+  useEffect(() => {
+    // Solo se ci sono prodotti e non sono già settate le categorie
+    if (products.length > 0 && categories.length === 0) {
+      setCategories([...new Set(products.map((p) => p.category))]);
+    }
+  }, [products, categories]);
+
+  // --- Return dell'Hook: restituisce tutto ciò che serve ai componenti ---
   return {
     products,
     loading,
@@ -86,6 +120,10 @@ export default function useProducts() {
     removeFavorite,
     comparedProducts,
     addCompared,
-    removeCompared
+    removeCompared,
+    VITE_API_PRODUCT_URL,
+    url,
+    setUrl,
+    categories,
   };
 }
