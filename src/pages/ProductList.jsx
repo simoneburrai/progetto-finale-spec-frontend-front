@@ -13,7 +13,8 @@ export default function ProductList() {
     addFavorite,
     comparedProducts,
     VITE_API_PRODUCT_URL,
-    categories
+    categories,
+    clearCompared
   } = useProductContext();
 
 
@@ -53,12 +54,19 @@ export default function ProductList() {
     if (selectedCategory) params.append("category", selectedCategory);
 
     setUrl(`${VITE_API_PRODUCT_URL}?${params.toString()}`);
+    clearCompared()
   }, [searchQuery, selectedCategory, VITE_API_PRODUCT_URL, setUrl]);
 
   // Visualizzazione Modale quando 2 elementi sono comparati.
   useEffect(() => {
     setShowModal(comparedProducts.length === 2);
   }, [comparedProducts]);
+
+  //Pulizia prodotti comparati al cambiamento di products
+
+  useEffect(()=>{
+    clearCompared();
+  }, [products])
 
 
   if (loading) {

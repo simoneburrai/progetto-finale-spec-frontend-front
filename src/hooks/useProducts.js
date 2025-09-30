@@ -38,6 +38,10 @@ export default function useProducts() {
     setComparedProducts((prev) => prev.filter((p) => p.id !== Number(id)));
   };
 
+  const clearCompared = ()=>{
+    setComparedProducts([]);
+  }
+
   // --- Funzioni per la gestione dei prodotti preferiti ---
   const addFavorite = (element) => {
     setFavoriteProducts((prev) => {
@@ -125,5 +129,6 @@ export default function useProducts() {
     url,
     setUrl,
     categories,
+    clearCompared
   };
 }

@@ -2,18 +2,23 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useProductContext } from "../contexts/ProductContext";
 
 export default function Default() {
-  
-  const {favoriteProducts} = useProductContext();
+  const { favoriteProducts } = useProductContext();
   const favoriteLength = favoriteProducts.length;
 
-
   return (
-    <>
+    <div className="d-flex flex-column min-vh-100">
       {/* HEADER */}
       <header>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
           <div className="container">
-            <NavLink className="navbar-brand fw-bold" to="/products">
+            <NavLink
+              className="navbar-brand fw-bold"
+              to="/products"
+              onClick={(e) => {
+                e.preventDefault(); // previene la navigazione React
+                window.location.href = "/products"; // reload completo
+              }}
+            >
               FINAL PROJECT
             </NavLink>
             <button
@@ -35,9 +40,14 @@ export default function Default() {
                     Prodotti
                   </NavLink>
                 </li>
-                <li className="nav-item">
+                <li className="nav-item position-relative">
                   <NavLink to="/favorites" className="nav-link">
-                    Preferiti {favoriteLength>0 && <span className="badge rounded-pill bg-danger">{favoriteProducts.length}</span>}
+                    Preferiti
+                    {favoriteLength > 0 && (
+                      <span className="badge rounded-pill bg-danger ms-2">
+                        {favoriteLength}
+                      </span>
+                    )}
                   </NavLink>
                 </li>
               </ul>
@@ -47,7 +57,7 @@ export default function Default() {
       </header>
 
       {/* MAIN */}
-      <main className="container my-5">
+      <main className="flex-grow-1 container my-5">
         <Outlet />
       </main>
 
@@ -66,6 +76,6 @@ export default function Default() {
           </a>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

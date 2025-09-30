@@ -3,13 +3,14 @@ import { useProductContext } from "../contexts/ProductContext"
 
 export default function ProductDetail({product, addFavorite, comparedProducts}){
     const {addCompared, removeCompared} = useProductContext();
-    
-    const selectCompared= (product, e)=>{
-        if(e.target.checked){
-            addCompared(product)
-        }else{
-            removeCompared(product.id);
-        }
+
+    const onChangeCompared = ()=>{
+      if (comparedProducts.some(p => p.id === product.id)) {
+                    removeCompared(product.id);
+                  } else {
+                    addCompared(product);
+                  }
+
     }
 
     
@@ -20,7 +21,10 @@ export default function ProductDetail({product, addFavorite, comparedProducts}){
                 <h4 className="card-title"><Link className="text-decoration-none text-primary fw-bold" to={`/products/${product.id}`}>{product.title}</Link></h4>
                 <p className="text-muted mb-3">{product.category.toUpperCase()}</p>
                 <button className="btn btn-outline-success mt-auto" onClick={()=>addFavorite(product)}>Aggiungi ai Preferiti</button>
-                <label>Confronta questo prodotto : <input checked={comparedProducts.some(p => p.id === product.id)} type="checkbox" onChange={(e)=>selectCompared(product, e)} /></label>
+                <label>Confronta questo prodotto : <input 
+                checked={comparedProducts.some(p => p.id === product.id)} 
+                type="checkbox" 
+                onChange={() => onChangeCompared()} /></label>
               </div>
             </div>
         </div>
