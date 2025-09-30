@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useProductContext } from "../contexts/ProductContext";
 import ProductDetail from "../components/ProductDetail";
 import ComparingModal from "../components/ComparingModal";
@@ -24,11 +24,12 @@ export default function ProductList() {
   const [onOrder, setOnOrder] = useState(1);
   const [showModal, setShowModal] = useState(false);
 
+
   // Debounce solo per aggiornare la query API
   useEffect(() => {
     const handler = debounce((val) => {
       setSearchQuery(val);
-    }, 800);
+    }, 600);
 
     handler(searchInput);
 
@@ -58,6 +59,7 @@ export default function ProductList() {
   useEffect(() => {
     setShowModal(comparedProducts.length === 2);
   }, [comparedProducts]);
+
 
   if (loading) {
     return <h2>Caricamento della Lista dei Prodotti in corso...</h2>;

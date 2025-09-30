@@ -1,12 +1,15 @@
 import { useProductContext } from "../contexts/ProductContext";
-
+import { Link } from "react-router-dom";
 export default function FavoriteProducts() {
   const { favoriteProducts, removeFavorite } = useProductContext();
 
   if (favoriteProducts.length === 0) {
     return (
       <div className="alert alert-warning text-center my-5">
-        Lista dei Preferiti Vuota
+        Lista dei Preferiti Vuota.
+        <div>
+           <Link to="/products">Torna alla lista dei prodotti</Link>
+        </div>
       </div>
     );
   }

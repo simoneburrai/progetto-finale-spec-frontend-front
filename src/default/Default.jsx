@@ -1,6 +1,12 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { useProductContext } from "../contexts/ProductContext";
 
 export default function Default() {
+  
+  const {favoriteProducts} = useProductContext();
+  const favoriteLength = favoriteProducts.length;
+
+
   return (
     <>
       {/* HEADER */}
@@ -31,7 +37,7 @@ export default function Default() {
                 </li>
                 <li className="nav-item">
                   <NavLink to="/favorites" className="nav-link">
-                    Preferiti
+                    Preferiti {favoriteLength>0 && <span className="badge rounded-pill bg-danger">{favoriteProducts.length}</span>}
                   </NavLink>
                 </li>
               </ul>
