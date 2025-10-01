@@ -1,8 +1,12 @@
 import { useEffect } from "react";
 import { useProductContext } from "../contexts/ProductContext";
 import { Link } from "react-router-dom";
+
 export default function FavoriteProducts() {
-  const { favoriteProducts, removeFavorite, setFavoriteProducts } = useProductContext();
+
+const { favoriteProducts,
+        removeFavorite, 
+        setFavoriteProducts } = useProductContext();
 
   //Prendo i preferiti e li setto alla creazione del componente
   useEffect(() => {
@@ -16,7 +20,7 @@ export default function FavoriteProducts() {
   }, [favoriteProducts]);
 
 
-  
+  //Se non ci sono prodotti favoriti restituisco "Lista Vuota"
   if (favoriteProducts.length === 0) {
     return (
       <div className="alert alert-warning text-center my-5">
@@ -27,8 +31,6 @@ export default function FavoriteProducts() {
       </div>
     );
   }
-
-  console.log(favoriteProducts);
 
   return (
     <div className="container my-5">

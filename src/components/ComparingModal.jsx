@@ -1,10 +1,12 @@
 import { createPortal } from "react-dom";
 
+//Collegamento al nodo DOM per rendering della modale
 const modalRoot = document.getElementById("modal-root");
 
 export default function ComparingModal({ products, showModal, onClose }) {
   if (!showModal || !modalRoot) return null;
 
+  //Creazione Portale di collegamento col nodo
   return createPortal(
     <div className="modal show d-block" tabIndex="-1" aria-modal="true" onClick={onClose}>
       <div className="modal-dialog">

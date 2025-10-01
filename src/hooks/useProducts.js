@@ -29,6 +29,8 @@ export default function useProducts() {
   const [comparedProducts, setComparedProducts] = useState([]);
 
   // --- Funzioni per la gestione dei prodotti comparati ---
+
+  // Aggiungi Prodotto Comparato (spread)
   const addCompared = (element) => {
     setComparedProducts((prev) => {
       // Evita duplicati
@@ -37,15 +39,19 @@ export default function useProducts() {
     });
   };
 
+  //Rimuovi prodotto comparato (filter per ID)
   const removeCompared = (id) => {
     setComparedProducts((prev) => prev.filter((p) => p.id !== Number(id)));
   };
 
+  //Rimuovi tutti i prodotti Comparati
   const clearCompared = ()=>{
     setComparedProducts([]);
   }
 
   // --- Funzioni per la gestione dei prodotti preferiti ---
+
+  //Aggiunta prodotti preferiti (spread)
   const addFavorite = (element) => {
     setFavoriteProducts((prev) => {
       // Evita duplicati
@@ -54,9 +60,11 @@ export default function useProducts() {
     });
   };
 
+  //Rimuovi prodotti preferiti (filter per ID)
   const removeFavorite = (id) => {
     setFavoriteProducts((prev) => prev.filter((p) => p.id !== Number(id)));
   };
+
 
   // --- Funzione per recuperare tutti i prodotti dall'API ---
   const getProducts = async (url) => {

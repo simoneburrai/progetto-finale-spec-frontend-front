@@ -29,11 +29,12 @@ export default function ProductPage() {
   }, [id, getSingleProduct]);
 
   
-
+  //Condizione Caricamento
   if (loading) {
     return <h2 className="text-center my-5">Caricamento in corso...</h2>;
   }
 
+  //Condizione di Errore
   if (error) {
     console.log(error);
     return <h2 className="text-danger text-center my-5">Prodotto non Trovato</h2>;

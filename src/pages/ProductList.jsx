@@ -28,14 +28,14 @@ export default function ProductList() {
 
   // Debounce solo per aggiornare la query API
   useEffect(() => {
-    const handler = debounce((val) => {
-      setSearchQuery(val);
+    const searchHandler = debounce((value) => {
+      setSearchQuery(value);
     }, 600);
 
-    handler(searchInput);
+    searchHandler(searchInput);
 
     return () => {
-      handler.cancel();
+      searchHandler.cancel();
     };
   }, [searchInput]);
 
@@ -62,21 +62,21 @@ export default function ProductList() {
     setShowModal(comparedProducts.length === 2);
   }, [comparedProducts]);
 
-  //Pulizia prodotti comparati al cambiamento di products
-
+  //Pulizia prodotti comparati al cambiamento di products (es: filtri, ricerche, ordinamenti)
   useEffect(()=>{
     clearCompared();
   }, [products])
 
-
+  //Condizione di Caricamento
   if (loading) {
     return <h2>Caricamento della Lista dei Prodotti in corso...</h2>;
   }
+
+  //Condizione di Errore
   if (error) {
     console.log(error);
     return <h2>Lista dei Prodotti non Trovata</h2>;
   }
-
   return (
     <div>
       <h1 className="mb-4 text-center">Lista dei Prodotti</h1>

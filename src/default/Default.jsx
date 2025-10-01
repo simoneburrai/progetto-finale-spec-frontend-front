@@ -2,6 +2,8 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useProductContext } from "../contexts/ProductContext";
 
 export default function Default() {
+
+  //Importazione prodotti favoriti dal contesto per icona numero preferiti
   const { favoriteProducts } = useProductContext();
   const favoriteLength = favoriteProducts.length;
 
