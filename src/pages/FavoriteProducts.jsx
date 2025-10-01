@@ -1,8 +1,22 @@
+import { useEffect } from "react";
 import { useProductContext } from "../contexts/ProductContext";
 import { Link } from "react-router-dom";
 export default function FavoriteProducts() {
-  const { favoriteProducts, removeFavorite } = useProductContext();
+  const { favoriteProducts, removeFavorite, setFavoriteProducts } = useProductContext();
 
+  //Prendo i preferiti e li setto alla creazione del componente
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    setFavoriteProducts(storedFavorites ? JSON.parse(storedFavorites) : []);
+  }, []);
+
+  // Aggiorno localStorage quando cambia la lista
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favoriteProducts));
+  }, [favoriteProducts]);
+
+
+  
   if (favoriteProducts.length === 0) {
     return (
       <div className="alert alert-warning text-center my-5">

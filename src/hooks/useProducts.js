@@ -20,7 +20,10 @@ export default function useProducts() {
   const [error, setError] = useState(null);
   
   // Lista dei prodotti preferiti dall'utente
-  const [favoriteProducts, setFavoriteProducts] = useState([]);
+  const [favoriteProducts, setFavoriteProducts] = useState(() => {
+  const storedFavorites = localStorage.getItem("favorites");
+  return storedFavorites ? JSON.parse(storedFavorites) : [];
+});
   
   // Lista dei prodotti selezionati per la comparazione
   const [comparedProducts, setComparedProducts] = useState([]);
@@ -120,6 +123,7 @@ export default function useProducts() {
     getProducts,
     getSingleProduct,
     favoriteProducts,
+    setFavoriteProducts,
     addFavorite,
     removeFavorite,
     comparedProducts,

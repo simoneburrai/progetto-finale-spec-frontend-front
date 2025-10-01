@@ -15,8 +15,8 @@ export default function Default() {
               className="navbar-brand fw-bold"
               to="/products"
               onClick={(e) => {
-                e.preventDefault(); // previene la navigazione React
-                window.location.href = "/products"; // reload completo
+                e.preventDefault(); 
+                window.location.href = "/products"; 
               }}
             >
               FINAL PROJECT
@@ -64,15 +64,15 @@ export default function Default() {
       {/* FOOTER */}
       <footer className="bg-dark text-light py-4 mt-auto">
         <div className="container text-center">
-          <p className="mb-1">Simone Burrai - Progetto Finale Boolean</p>
-          <p className="mb-1">Classe 142</p>
+          <p className="mb-1 fs-4"><strong>Simone Burrai</strong> - Progetto Finale Boolean</p>
+          <p className="mb-1 fs-5 fw-bold">Classe 142</p>
           <a
             href="https://github.com/simoneburrai"
             target="_blank"
             rel="noopener noreferrer"
             className="text-info"
           >
-            <i className="bi bi-github me-2"></i>GitHub
+            <i className="fa-brands fa-github fs-1"></i>
           </a>
         </div>
       </footer>
