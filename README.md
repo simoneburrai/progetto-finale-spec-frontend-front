@@ -1,7 +1,7 @@
 # 📀 Progetto Finale - Comparatore di Records
 
-## 🖼️ Cosa devi realizzare
-Una SPA che simula l’esperienza di un utente non autenticato, che può:
+## 🖼️ Scopo del Progetto:
+Realizzazione di una SPA che simula l’esperienza di un utente non autenticato, che può:
 - ✅ Sfogliare, cercare e filtrare record
 - ✅ Confrontare più elementi tra loro
 - ✅ Salvare i preferiti  
@@ -11,14 +11,15 @@ Una SPA che simula l’esperienza di un utente non autenticato, che può:
 
 ## 🔍 Tecnologie da utilizzare
 - React (JavaScript)
-- Styling libero (Tailwind, Bootstrap, styled-components…)
-- Backend già pronto (repo ufficiale fornito)
+- Styling libero (scelto: Bootstrap)
+- Backend già pronto
 
 ---
 
 ## 🎨 Tematica a scelta
-Puoi scegliere liberamente l’argomento del comparatore.  
+Scelta libera dell’argomento del comparatore.  
 Esempi: dispositivi, multimedia, informatica, viaggi, trasporti, educazione, alimenti, casa, ecc.
+Scelta Personale : **Dispositivi Elettronici**(smartphone, smartwatch e tablet)
 
 ---
 
@@ -53,34 +54,34 @@ Il backend genera automaticamente:
 
 ---
 
-## 🥉 Requisiti Minimi
+## 🥉 Requisiti Minimi 
 - Gestione di una risorsa definita in `types.ts`
 - Lista dei record con:
-  - Barra di ricerca
-  - Filtro per categoria
-  - Ordinamento alfabetico
-- Pagina di dettaglio
-- Comparatore di 2 record
-- Sistema di preferiti
+  - Barra di ricerca ✓
+  - Filtro per categoria ✓
+  - Ordinamento alfabetico ✓
+- Pagina di dettaglio ✓
+- Comparatore di 2 record ✓
+- Sistema di preferiti ✓
 
 ---
 
 ## 🥈 Requisiti Consigliati (Facoltativi)
-- Comparatore di più record
-- Debounce sulla ricerca
-- Persistenza preferiti
-- Gestione stati vuoti
+- Comparatore di più record X
+- Debounce sulla ricerca ✓
+- Persistenza preferiti ✓
+- Gestione stati vuoti ✓
 
 ---
 
-## 🥇 Requisiti Aggiuntivi (Facoltativi)
+## 🥇 Requisiti Aggiuntivi (Facoltativi) (Non disponibile)
 - Gestione di più risorse
 - CRUD completo
 - Validazione input
 
 ---
 
-## 🎯 BONUS
+## 🎯 BONUS (Non Disponibile)
 - Versione parallela in **TypeScript**
 
 ---
@@ -96,8 +97,3 @@ Al momento del push finale includere:
 - Cartella `/database`
 - File `types.ts`  
 
-Entrambi con almeno 10 record validi.
-
----
-
-💪 Buon lavoro!
