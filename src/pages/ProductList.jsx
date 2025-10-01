@@ -135,7 +135,7 @@ export default function ProductList() {
             />
           ))
         ) : (
-          <div>Lista dei prodotti Vuota...</div>
+          <div className="text-white bg-danger p-3 text-center">Nessun Risultato Trovato</div>
         )}
       </div>
 

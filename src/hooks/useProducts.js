@@ -24,6 +24,11 @@ export default function useProducts() {
   const storedFavorites = localStorage.getItem("favorites");
   return storedFavorites ? JSON.parse(storedFavorites) : [];
 });
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favoriteProducts));
+  }, [favoriteProducts]);
+
   
   // Lista dei prodotti selezionati per la comparazione
   const [comparedProducts, setComparedProducts] = useState([]);

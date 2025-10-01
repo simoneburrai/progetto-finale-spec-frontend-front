@@ -4,21 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function FavoriteProducts() {
 
-const { favoriteProducts,
-        removeFavorite, 
-        setFavoriteProducts } = useProductContext();
-
-  //Prendo i preferiti e li setto alla creazione del componente
-  useEffect(() => {
-    const storedFavorites = localStorage.getItem("favorites");
-    setFavoriteProducts(storedFavorites ? JSON.parse(storedFavorites) : []);
-  }, []);
-
-  // Aggiorno localStorage quando cambia la lista
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favoriteProducts));
-  }, [favoriteProducts]);
-
+const { favoriteProducts, removeFavorite } = useProductContext();
 
   //Se non ci sono prodotti favoriti restituisco "Lista Vuota"
   if (favoriteProducts.length === 0) {
