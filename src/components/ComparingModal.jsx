@@ -12,7 +12,7 @@ export default function ComparingModal({ products, showModal, onClose }) {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">Confronta due articoli</h5>
+            <h5 className="modal-title fs-4 text-success text-center">Confronta due articoli</h5>
             <button type="button" className="btn-close" aria-label="Chiudi" onClick={onClose}></button>
           </div>
           <div className="modal-body">
@@ -26,7 +26,7 @@ export default function ComparingModal({ products, showModal, onClose }) {
               </div>
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" onClick={onClose}>
+            <button type="button" className="text-danger bg-light border border-danger p-3 rounded-3 text-center mx-auto" onClick={onClose}>
               Chiudi
             </button>
           </div>
