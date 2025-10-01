@@ -135,7 +135,7 @@ export default function ProductList() {
             />
           ))
         ) : (
-          <div className="text-white bg-danger p-3 text-center">Nessun Risultato Trovato</div>
+        <div className="text-danger bg-light border border-danger p-3 rounded-3 text-center mx-auto" >Nessun Risultato Trovato</div>
         )}
       </div>
 

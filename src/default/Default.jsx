@@ -74,7 +74,7 @@ export default function Default() {
             rel="noopener noreferrer"
             className="text-info"
           >
-            <i className="fa-brands fa-github fs-1"></i>
+            <i  id="github-logo"className="fa-brands fa-github fs-1"></i>
           </a>
         </div>
       </footer>
