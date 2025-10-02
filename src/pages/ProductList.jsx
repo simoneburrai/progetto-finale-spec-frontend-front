@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useLayoutEffect } from "react";
 import { useProductContext } from "../contexts/ProductContext";
 import ProductDetail from "../components/ProductDetail";
 import ComparingModal from "../components/ComparingModal";
@@ -26,6 +26,11 @@ export default function ProductList() {
   const [onOrder, setOnOrder] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const inputRef = useRef(null);
+
+ useLayoutEffect(() => {
+  inputRef.current?.focus();
+});
 
 
   // Debounce solo per aggiornare la query API
@@ -86,6 +91,7 @@ export default function ProductList() {
       <div className="d-flex align-items-center justify-content-between gap-3 p-3 border rounded">
         {/* Ricerca */}
         <input
+          ref={inputRef}
           type="text"
           className="form-control"
           placeholder="Cerca..."
