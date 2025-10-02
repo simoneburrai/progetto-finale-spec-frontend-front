@@ -9,10 +9,10 @@ const { favoriteProducts, removeFavorite } = useProductContext();
   //Se non ci sono prodotti favoriti restituisco "Lista Vuota"
   if (favoriteProducts.length === 0) {
     return (
-      <div className="alert alert-warning text-center my-5">
+      <div className="alert alert-warning fs-4 text-center my-5">
         Lista dei Preferiti Vuota.
         <div>
-           <Link to="/products">Torna alla lista dei prodotti</Link>
+           <Link className="text-decoration-none fs-3" to="/products"> <i class="fa-solid fa-arrow-left"></i> Torna alla lista dei prodotti</Link>
         </div>
       </div>
     );

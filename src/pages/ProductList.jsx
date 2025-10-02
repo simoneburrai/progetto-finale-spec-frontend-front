@@ -3,6 +3,7 @@ import { useProductContext } from "../contexts/ProductContext";
 import ProductDetail from "../components/ProductDetail";
 import ComparingModal from "../components/ComparingModal";
 import { debounce } from "lodash";
+import { useSearchParams } from "react-router-dom";
 
 export default function ProductList() {
   const {
@@ -24,6 +25,7 @@ export default function ProductList() {
   const [onSortOption, setOnSortOption] = useState("title");
   const [onOrder, setOnOrder] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
 
   // Debounce solo per aggiornare la query API
@@ -54,7 +56,8 @@ export default function ProductList() {
     if (selectedCategory) params.append("category", selectedCategory);
 
     setUrl(`${VITE_API_PRODUCT_URL}?${params.toString()}`);
-    clearCompared()
+    setSearchParams(params);
+   // clearCompared()
   }, [searchQuery, selectedCategory, VITE_API_PRODUCT_URL, setUrl]);
 
   // Visualizzazione Modale quando 2 elementi sono comparati.

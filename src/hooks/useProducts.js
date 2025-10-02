@@ -107,6 +107,7 @@ export default function useProducts() {
     const fetchProducts = async () => {
       try {
         setLoading(true);
+         console.log("Fetching products from:", url); 
         await getProducts(url);
       } catch (err) {
         console.error(err.message);
