@@ -4,7 +4,6 @@ import ProductPage from "./pages/ProductPage"
 import { ProductProvider } from "./contexts/ProductContext"
 import Default from "./default/Default"
 import FavoriteProducts from "./pages/FavoriteProducts"
-import { divide } from "lodash"
 import NotFound from "./components/NotFound"
 
 function App() {
