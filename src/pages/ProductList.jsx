@@ -16,7 +16,9 @@ export default function ProductList() {
     setComparedProductsIds,
     VITE_API_PRODUCT_URL,
     categories,
-    clearCompared
+    clearCompared,
+    showModal,
+    setShowModal
   } = useProductContext();
 
 
@@ -25,7 +27,6 @@ export default function ProductList() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [onSortOption, setOnSortOption] = useState("title");
   const [onOrder, setOnOrder] = useState(1);
-  const [showModal, setShowModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const inputRef = useRef(null);
 

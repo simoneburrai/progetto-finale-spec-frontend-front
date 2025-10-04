@@ -1,14 +1,28 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useProductContext } from "../contexts/ProductContext";
+import ComparingModal from "../components/ComparingModal";
 
 export default function ProductPage() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { getSingleProduct, addFavorite, favoriteProducts} = useProductContext();
+  const { getSingleProduct,
+     addFavorite, 
+     favoriteProducts, 
+     products, 
+     comparedProductsIds, 
+     setComparedProductsIds,
+    showModal,
+    setShowModal} = useProductContext();
+  const [isCompared, setIsCompared] = useState(false);
   const disabledButton = favoriteProducts.some(p=> p.id === product.id) && "btn-outline-danger disabled" 
   const abledButton = "btn-outline-success"
+
+  function compareProducts(firstId, secondId){
+    setComparedProductsIds([firstId, secondId]);
+    setShowModal(true);
+  }
 
   let { id } = useParams();
   id = Number(id);
@@ -29,6 +43,7 @@ export default function ProductPage() {
 
     fetchProduct();
   }, [id, getSingleProduct]);
+
 
 
 
@@ -81,6 +96,12 @@ export default function ProductPage() {
                 <button onClick={()=>addFavorite(product)} className={`btn  mt-auto ${disabledButton ? disabledButton : abledButton}`}>
                   <i className="bi bi-cart-plus me-2"></i>Aggiungi ai Preferiti
                 </button>
+                <button className="btn mt-auto btn-outline-primary" onClick={()=>setIsCompared(prev=>!prev)}>Confronta questo Articolo</button>
+                    {isCompared && <label><strong>Seleziona Prodotto da Comparare:</strong><select className="form-select" onChange={(e)=>compareProducts(e.target.value, product.id)}>
+                    {products.map(p=><option key={p.id} value={p.id}>{p.title}</option>)}
+                  </select></label>}
+                
+                
               </div>
             </div>
           </div>
@@ -88,6 +109,17 @@ export default function ProductPage() {
       ) : (
         <div className="alert alert-warning text-center">Prodotto non trovato</div>
       )}
+
+      <ComparingModal
+              productsIds={comparedProductsIds}
+              showModal={showModal}
+              addFavorite={addFavorite}
+              onClose={() => {
+                setShowModal(false);
+                setComparedProductsIds([]);
+              }}
+            />
     </div>
+    
   );
 }

@@ -18,6 +18,8 @@ export default function useProducts() {
   
   // Stato di errore
   const [error, setError] = useState(null);
+
+  const [showModal, setShowModal] = useState(false);
   
   // Lista dei prodotti preferiti dall'utente
   const [favoriteProducts, setFavoriteProducts] = useState(() => {
@@ -148,6 +150,8 @@ export default function useProducts() {
     url,
     setUrl,
     categories,
-    clearCompared
+    clearCompared,
+    showModal,
+    setShowModal
   };
 }
