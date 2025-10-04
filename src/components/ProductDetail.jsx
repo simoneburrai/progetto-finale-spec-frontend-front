@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom"
 import { useProductContext } from "../contexts/ProductContext"
 
-export default function ProductDetail({product, addFavorite, comparedProducts}){
+export default function ProductDetail({product, addFavorite, comparedProductsIds}){
     const {addCompared, removeCompared, favoriteProducts} = useProductContext();
 
     const onChangeCompared = ()=>{
-      if (comparedProducts.some(p => p.id === product.id)) {
+      if (comparedProductsIds.some(id => id === product.id)) {
                     removeCompared(product.id);
                   } else {
-                    addCompared(product);
+                    addCompared(product.id);
                   }
 
     }
@@ -23,7 +23,7 @@ export default function ProductDetail({product, addFavorite, comparedProducts}){
                 <p className="text-muted mb-3">{product.category.toUpperCase()}</p>
                 <button className={`btn  mt-auto ${disabledButton ? disabledButton : abledButton}`}onClick={()=>addFavorite(product)}>Aggiungi ai Preferiti</button>
                 <label>Confronta questo prodotto : <input 
-                checked={comparedProducts.some(p => p.id === product.id)} 
+                checked={comparedProductsIds.some(id => id === product.id)} 
                 type="checkbox" 
                 onChange={() => onChangeCompared()} /></label>
               </div>

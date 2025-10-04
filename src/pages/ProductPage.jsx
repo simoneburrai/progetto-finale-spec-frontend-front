@@ -6,7 +6,9 @@ export default function ProductPage() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { getSingleProduct, addFavorite} = useProductContext();
+  const { getSingleProduct, addFavorite, favoriteProducts} = useProductContext();
+  const disabledButton = favoriteProducts.some(p=> p.id === product.id) && "btn-outline-danger disabled" 
+  const abledButton = "btn-outline-success"
 
   let { id } = useParams();
   id = Number(id);
@@ -27,6 +29,8 @@ export default function ProductPage() {
 
     fetchProduct();
   }, [id, getSingleProduct]);
+
+
 
   
   //Condizione Caricamento
@@ -74,7 +78,7 @@ export default function ProductPage() {
                   </span>
                 </div>
 
-                <button onClick={()=>addFavorite(product)} className="btn btn-outline-success mt-auto">
+                <button onClick={()=>addFavorite(product)} className={`btn  mt-auto ${disabledButton ? disabledButton : abledButton}`}>
                   <i className="bi bi-cart-plus me-2"></i>Aggiungi ai Preferiti
                 </button>
               </div>

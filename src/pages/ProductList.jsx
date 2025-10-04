@@ -12,7 +12,8 @@ export default function ProductList() {
     loading,
     error,
     addFavorite,
-    comparedProducts,
+    comparedProductsIds,
+    setComparedProductsIds,
     VITE_API_PRODUCT_URL,
     categories,
     clearCompared
@@ -67,8 +68,8 @@ export default function ProductList() {
 
   // Visualizzazione Modale quando 2 elementi sono comparati.
   useEffect(() => {
-    setShowModal(comparedProducts.length === 2);
-  }, [comparedProducts]);
+    setShowModal(comparedProductsIds.length >= 2);
+  }, [comparedProductsIds]);
 
   //Pulizia prodotti comparati al cambiamento di products (es: filtri, ricerche, ordinamenti)
   useEffect(()=>{
@@ -138,7 +139,7 @@ export default function ProductList() {
           sortedProducts.map((product) => (
             <ProductDetail
               key={product.id}
-              comparedProducts={comparedProducts}
+              comparedProductsIds={comparedProductsIds}
               addFavorite={addFavorite}
               product={product}
             />
@@ -149,9 +150,13 @@ export default function ProductList() {
       </div>
 
       <ComparingModal
-        products={comparedProducts}
+        productsIds={comparedProductsIds}
         showModal={showModal}
-        onClose={() => setShowModal(false)}
+        addFavorite={addFavorite}
+        onClose={() => {
+          setShowModal(false);
+          setComparedProductsIds([]);
+        }}
       />
     </div>
   );

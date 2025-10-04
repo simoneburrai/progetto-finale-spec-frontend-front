@@ -30,28 +30,28 @@ export default function useProducts() {
   }, [favoriteProducts]);
 
   
-  // Lista dei prodotti selezionati per la comparazione
-  const [comparedProducts, setComparedProducts] = useState([]);
+  // Lista degli Id dei prodotti selezionati per la comparazione
+  const [comparedProductsIds, setComparedProductsIds] = useState([]);
 
   // --- Funzioni per la gestione dei prodotti comparati ---
 
-  // Aggiungi Prodotto Comparato (spread)
-  const addCompared = (element) => {
-    setComparedProducts((prev) => {
+  // Aggiungi ID Prodotto Comparato (spread)
+  const addCompared = (id) => {
+    setComparedProductsIds((prev) => {
       // Evita duplicati
-      if (prev.some((p) => p.id === element.id)) return prev;
-      return [...prev, element];
+      if (prev.some(prevId => prevId === id)) return prev;
+      return [...prev, id];
     });
   };
 
-  //Rimuovi prodotto comparato (filter per ID)
+  //Rimuovi ID prodotto comparato 
   const removeCompared = (id) => {
-    setComparedProducts((prev) => prev.filter((p) => p.id !== Number(id)));
+    setComparedProductsIds((prev) => prev.filter(prevId => prevId !== Number(id)));
   };
 
   //Rimuovi tutti i prodotti Comparati
   const clearCompared = ()=>{
-    setComparedProducts([]);
+    setComparedProductsIds([]);
   }
 
   // --- Funzioni per la gestione dei prodotti preferiti ---
@@ -140,7 +140,8 @@ export default function useProducts() {
     setFavoriteProducts,
     addFavorite,
     removeFavorite,
-    comparedProducts,
+    comparedProductsIds,
+    setComparedProductsIds,
     addCompared,
     removeCompared,
     VITE_API_PRODUCT_URL,
