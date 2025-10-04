@@ -31,7 +31,9 @@ export default function ProductList() {
   const inputRef = useRef(null);
 
  useLayoutEffect(() => {
-  inputRef.current?.focus();
+  inputRef.current?.focus({
+    preventScroll: true
+  });
 });
 
 

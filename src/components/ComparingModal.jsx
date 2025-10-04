@@ -43,7 +43,7 @@ export default function ComparingModal({ productsIds, showModal, onClose, addFav
           <div className="modal-body">
               <div className="row">
                 {comparedProducts.map(product => (
-                  <div key={product.id} className="d-flex justify-content-center col-6 card shadow-lg p-3">
+                  <div key={product.id} className="d-flex justify-content-center col-md-6 card shadow-lg p-3">
                     <div >
                       {/* Immagine */}
                       <div className="text-center p-4">
