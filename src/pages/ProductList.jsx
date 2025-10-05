@@ -1,9 +1,9 @@
-import { useState, useMemo, useEffect, useRef, useLayoutEffect } from "react";
+import { useState, useMemo, useEffect, useRef, useLayoutEffect, useCallback } from "react";
 import { useProductContext } from "../contexts/ProductContext";
 import ProductDetail from "../components/ProductDetail";
 import ComparingModal from "../components/ComparingModal";
-import { debounce } from "lodash";
 import { useSearchParams } from "react-router-dom";
+import debounce from "../utils/debounce";
 
 export default function ProductList() {
   const {
@@ -22,8 +22,8 @@ export default function ProductList() {
   } = useProductContext();
 
 
-  const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [onSortOption, setOnSortOption] = useState("title");
   const [onOrder, setOnOrder] = useState(1);
@@ -37,18 +37,16 @@ export default function ProductList() {
 });
 
 
-  // Debounce solo per aggiornare la query API
-  useEffect(() => {
-    const searchHandler = debounce((value) => {
-      setSearchQuery(value);
-    }, 600);
+//Debounce Api Search
+const debounceHandleSearch = useCallback(debounce((value)=>setSearchQuery(value), 500 ), [])
 
-    searchHandler(searchInput);
+//Handling Search, two states, input and query
+const handleSearch = (value)=>{
+  setSearchInput(value);
+  debounceHandleSearch(value);
+}
 
-    return () => {
-      searchHandler.cancel();
-    };
-  }, [searchInput]);
+
 
   // gestione ordinamento A-Z, titolo e categorie
   const sortedProducts = useMemo(() => {
@@ -100,7 +98,7 @@ export default function ProductList() {
           className="form-control"
           placeholder="Cerca..."
           value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
+          onChange={(e) => handleSearch(e.target.value)}
           style={{ maxWidth: "200px" }}
         />
 

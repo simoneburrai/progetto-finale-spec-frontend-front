@@ -96,7 +96,7 @@ export default function ProductPage() {
                 <button onClick={()=>addFavorite(product)} className={`btn  mt-auto ${disabledButton ? disabledButton : abledButton}`}>
                   <i className="bi bi-cart-plus me-2"></i>Aggiungi ai Preferiti
                 </button>
-                <button className="btn mt-auto btn-outline-primary" onClick={()=>setIsCompared(prev=>!prev)}>Confronta questo Articolo</button>
+                <button className="btn mt-auto btn-outline-primary" onClick={()=>setIsCompared(prev=>!prev)}>{!isCompared ? "Confronta questo Articolo" : "Chiudi Comparatore"}</button>
                     {isCompared && <label><strong>Seleziona Prodotto da Comparare:</strong><select className="form-select" onChange={(e)=>compareProducts(e.target.value, product.id)}>
                     {products.map(p=><option key={p.id} value={p.id}>{p.title}</option>)}
                   </select></label>}
