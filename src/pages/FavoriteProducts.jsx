@@ -12,7 +12,7 @@ const { favoriteProducts, removeFavorite } = useProductContext();
       <div className="alert alert-warning fs-4 text-center my-5">
         Lista dei Preferiti Vuota.
         <div>
-           <Link className="text-decoration-none fs-3" to="/products"> <i class="fa-solid fa-arrow-left"></i> Torna alla lista dei prodotti</Link>
+           <Link className="text-decoration-none fs-3" to="/products"> <i className="fa-solid fa-arrow-left"></i> Torna alla lista dei prodotti</Link>
         </div>
       </div>
     );

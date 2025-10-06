@@ -7,24 +7,44 @@ const modalRoot = document.getElementById("modal-root");
 
 export default function ComparingModal({ productsIds, showModal, onClose, addFavorite}) {
   const [comparedProducts, setComparedProducts] = useState([]);
-  const {getSingleProduct, favoriteProducts} = useProductContext();
+  const {getSingleProduct, favoriteProducts, addCompared, removeCompared, products} = useProductContext();
+  const [isComparingOthers, setIsComparingOthers] = useState(false);
   const abledButton = "btn-outline-success"
 
-  async function fetchComparedProducts(ids){
-    const productsPromises = ids.map(id=>getSingleProduct(id));
-    try {
-      const allProducts = await Promise.all(productsPromises);
-      setComparedProducts(allProducts);
-    } catch (error) {
+
+  const fetchComparedProducts = async(ids)=>{
+    const promisesProducts =  ids.map(id=>getSingleProduct(id));
+
+    try{
+      const fetchedProducts = await Promise.all(promisesProducts);
+      setComparedProducts(prev=>[...prev, ...fetchedProducts])
+    }catch (error) {
       console.error(error);
     }
+    
   }
 
-  useEffect(()=>{
-    if(productsIds.length >= 2){
-      fetchComparedProducts(productsIds);
-    }
-  }, [productsIds]);
+ useEffect(() => {
+  if (!productsIds || productsIds.length === 0) {
+    setComparedProducts([]);
+    return;
+  }
+
+  const normalizedIds = productsIds.map(id => Number(id));
+
+  setComparedProducts(prev =>
+    prev.filter(p => normalizedIds.includes(p.id))
+  );
+
+  const newIds = normalizedIds.filter(
+    id => !comparedProducts.some(p => p.id === id)
+  );
+
+  if (newIds.length > 0) {
+    fetchComparedProducts(newIds);
+  }
+}, [productsIds]);
+
 
   if (!showModal || !modalRoot) return null;
 
@@ -76,6 +96,7 @@ export default function ComparingModal({ productsIds, showModal, onClose, addFav
                             "btn-outline-danger disabled" : abledButton}`} onClick={()=>addFavorite(product)}>
                             <i className="bi bi-cart-plus me-2"></i>Aggiungi ai Preferiti
                           </button>
+                          <button onClick={()=>removeCompared(product.id)} className="btn mt-auto btn-outline-danger"><i className="fa-solid fa-xmark"></i></button>
                         </div>
                       </div>
                     </div>
@@ -84,9 +105,27 @@ export default function ComparingModal({ productsIds, showModal, onClose, addFav
               </div>
           </div>
           <div className="modal-footer">
-            <button type="button" className="text-danger bg-light border border-danger p-3 rounded-3 text-center mx-auto" onClick={onClose}>
+            <button type="button" className="btn btn-outline-danger p-3 rounded-3 text-center mx-auto" onClick={onClose}>
               Chiudi
             </button>
+            <button type="button" className="btn btn-outline-primary p-3 rounded-3 text-center mx-auto" onClick={()=>setIsComparingOthers(prev=>!prev)}>Compara altri articoli</button>
+            {isComparingOthers && <label className="d-flex flex-column mb-3">
+              <strong className="mb-2">Seleziona Prodotto da Comparare:</strong>
+              <select
+                className="form-select w-auto"
+                onChange={(e) => {
+                  const id = Number(e.target.value);
+                  if (!productsIds.includes(id)) addCompared(id); // evita duplicati
+                  e.target.value = ""; // resetta la select dopo la scelta
+                }}
+                defaultValue=""
+              >
+                <option value="" disabled>— Seleziona un prodotto —</option>
+                {products.map((p) => (
+                  <option key={p.id} value={p.id}>{p.title}</option>
+                ))}
+              </select>
+            </label>}
           </div>
         </div>
       </div>

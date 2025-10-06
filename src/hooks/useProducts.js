@@ -41,7 +41,7 @@ export default function useProducts() {
   const addCompared = (id) => {
     setComparedProductsIds((prev) => {
       // Evita duplicati
-      if (prev.some(prevId => prevId === id)) return prev;
+      if (prev.some(prevId => prevId === Number(id))) return prev;
       return [...prev, id];
     });
   };
