@@ -5,6 +5,7 @@ import { ProductProvider } from "./contexts/ProductContext"
 import Default from "./default/Default"
 import FavoriteProducts from "./pages/FavoriteProducts"
 import NotFound from "./components/NotFound"
+import { Navigate } from "react-router-dom"
 
 function App() {
 
