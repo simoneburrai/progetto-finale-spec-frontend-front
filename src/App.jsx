@@ -8,18 +8,26 @@ import NotFound from "./components/NotFound"
 
 function App() {
 
-  return <ProductProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Default/>}>
-              <Route path="/products" element={<ProductList/>}/>
-              <Route path="/products/:id" element={<ProductPage/>}/>
-              <Route path="/favorites" element={<FavoriteProducts/>}/>
-            </Route>
-            <Route path="/*" element={<NotFound/>}/>
-          </Routes>
-      </BrowserRouter>
-  </ProductProvider> 
+ return (
+  <ProductProvider>
+    <BrowserRouter>
+      <Routes>
+
+        <Route path="/" element={<Default />}>
+
+          <Route index element={<Navigate to="/products" replace />} />
+
+          <Route path="/products" element={<ProductList />} />
+          <Route path="/products/:id" element={<ProductPage />} />
+          <Route path="/favorites" element={<FavoriteProducts />} />
+        </Route>
+        
+        {/* Rotta 404 */}
+        <Route path="/*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  </ProductProvider>
+);
 }
 
 export default App
