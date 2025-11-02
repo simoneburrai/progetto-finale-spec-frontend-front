@@ -18,7 +18,7 @@ export default function Default() {
               to="/products"
               onClick={(e) => {
                 e.preventDefault(); 
-                window.location.href = "/products"; 
+                window.location.href = "/api/products"; 
               }}
             >
               FINAL PROJECT
