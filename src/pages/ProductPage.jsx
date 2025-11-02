@@ -16,7 +16,7 @@ export default function ProductPage() {
     showModal,
     setShowModal} = useProductContext();
   const [isCompared, setIsCompared] = useState(false);
-  const disabledButton = favoriteProducts.some(p=> p.id === product.id) && "btn-outline-danger disabled" 
+  const disabledButton = product && favoriteProducts.some(p => p.id === product.id) ? "btn-outline-danger disabled" : "btn-outline-success";
   const abledButton = "btn-outline-success"
 
   function compareProducts(firstId, secondId){
