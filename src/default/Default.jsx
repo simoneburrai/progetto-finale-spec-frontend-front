@@ -16,10 +16,6 @@ export default function Default() {
             <NavLink
               className="navbar-brand fw-bold"
               to="/products"
-              onClick={(e) => {
-                e.preventDefault(); 
-                window.location.href = "/products"; 
-              }}
             >
               FINAL PROJECT
             </NavLink>
